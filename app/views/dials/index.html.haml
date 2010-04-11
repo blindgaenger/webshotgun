@@ -1,0 +1,6 @@
+#pages
+  - @pages.each do |name, url, image|
+    %a.page{:href => url}
+      %img{:alt => name, :src => image}
+
+.clear

@@ -7,11 +7,14 @@ h1, h2, h3, h4, h5, h6 {
   font-family: "Helvetica", sans-serif;
   text-align: center; }
 
+a, a img {
+  border: 0px solid transparent; }
+
 .clear {
   clear: both; }
 
 #container {
-  width: 640px;
+  width: 880px;
   margin: 30px auto 3px;
   padding: 20px;
   background: #fff;
@@ -22,9 +25,12 @@ h1, h2, h3, h4, h5, h6 {
     margin: 8px;
     border: 2px solid #ccc;
     padding: 0px;
-    width: 140px;
-    height: 140px;
+    width: 200px;
+    height: 200px;
     float: left; }
+    #container #pages .page img {
+      width: 200px;
+      height: 200px; }
 
 #footer {
   text-align: center;

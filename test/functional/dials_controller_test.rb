@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class DialControllerTest < ActionController::TestCase
+class DialsControllerTest < ActionController::TestCase
   # Replace this with your real tests.
   test "the truth" do
     assert true
