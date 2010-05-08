@@ -5,3 +5,8 @@
 #   
 #   cities = City.create([{ :name => 'Chicago' }, { :name => 'Copenhagen' }])
 #   Major.create(:name => 'Daley', :city => cities.first)
+
+Page.create :name => 'Google',        :url => 'http://www.google.de/'
+Page.create :name => 'Yahoo',         :url => 'http://www.yahoo.de/'
+Page.create :name => 'Avocado Store', :url => 'http://www.avocadostore.de/'
+Page.create :name => 'blindgaenger',  :url => 'http://blindgaenger.net/'
