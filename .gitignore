@@ -1,6 +1,16 @@
+\#*
+*~
+.#*
+*.tmproj
 .bundle
+.rvmrc
+.autotest
+.DS_Store
 db/*.sqlite3
 log/*.log
+log/*.pid
 tmp/**/*
-TODO
 public/system/
+vendor/rails
+vendor/plugins
+vendor/bundle/*
