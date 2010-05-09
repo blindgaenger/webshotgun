@@ -1,0 +1,6 @@
+.page
+  %div
+    %a{:href => page.url}
+      %img{:alt => page.name, :src => page.image}
+  %div
+    %a.edit_page{:href => edit_page_path(page)} Edit Page

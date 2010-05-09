@@ -20,4 +20,21 @@ class PagesController < ApplicationController
     end
   end
   
+  def edit
+    @page = Page.find(params[:id])
+    render :layout => false
+  end
+  
+  def update
+    @page = Page.find(params[:id])
+    
+    if @page.update_attributes(params[:page]) && @page.fetch
+      flash[:notice] = 'Page was successfully updated.'
+      redirect_to pages_path
+    else
+      flash[:error] = 'Page was not updated.'
+      render :action => "edit", :layout => false
+    end
+  end
+  
 end

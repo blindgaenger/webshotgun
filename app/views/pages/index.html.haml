@@ -3,19 +3,22 @@
 
 #pages
   - @pages.each do |page|
-    %a.page{:href => page.url}
-      %img{:alt => page.name, :src => page.image}
+    = render :partial => 'page', :locals => {:page => page}
 
 .clear
 
 :javascript
   $(document).ready(function() {
-    $('#buttons a.new_page').fancybox({
+    options = {
       'transitionIn'	: 'elastic',
       'transitionOut'	: 'elastic',
       'scrolling'		: 'no',
       'autoDimensions' : false,
       'width' : 230,
       'height' : 160,
-    });
+    }
+  
+    $('a.new_page').fancybox(options);
+    $('a.edit_page').fancybox(options);
+    
   });
