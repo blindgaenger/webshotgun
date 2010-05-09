@@ -1,0 +1,5 @@
+%h1 Delete Page
+
+%p Really delete '#{h @page.name}'?
+
+= button_to 'Delete', page_path(@page), :method => :delete
