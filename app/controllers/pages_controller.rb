@@ -48,4 +48,10 @@ class PagesController < ApplicationController
     redirect_to pages_path
   end
   
+  def refresh
+    @page = Page.find(params[:id])
+    @page.fetch
+    redirect_to pages_path
+  end
+  
 end

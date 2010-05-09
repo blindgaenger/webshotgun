@@ -3,5 +3,6 @@
     %a{:href => page.url}
       %img{:alt => page.name, :src => page.image}
   %div
+    %a.refresh_page{:href => refresh_page_path(page)} Refresh
     %a.edit_page{:href => edit_page_path(page)} Edit
     %a.delete_page{:href => delete_page_path(page)} Delete
