@@ -23,7 +23,7 @@ class PagesController < ApplicationController
     
     if @page.save
       flash[:notice] = 'Page was successfully created.'
-      redirect_to pages_path
+      redirect_to root_path
     else
       flash[:error] = 'Page was not created.'
       render :action => "new", :layout => false
@@ -40,7 +40,7 @@ class PagesController < ApplicationController
     
     if @page.update_attributes(params[:page]) && @page.refresh #TODO
       flash[:notice] = 'Page was successfully updated.'
-      redirect_to pages_path
+      redirect_to root_path
     else
       flash[:error] = 'Page was not updated.'
       render :action => "edit", :layout => false
@@ -55,7 +55,7 @@ class PagesController < ApplicationController
   def destroy
     @page = Page.find(params[:id])
     @page.destroy
-    redirect_to pages_path
+    redirect_to root_path
   end
   
   def refresh
