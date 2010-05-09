@@ -64,4 +64,12 @@ class PagesController < ApplicationController
     head :ok
   end
   
+  def image
+    @page = Page.find(params[:id])
+    
+    render :content_type => 'image/png', :text => Proc.new {|response, output|
+      output.write @page.image
+    }
+  end
+  
 end

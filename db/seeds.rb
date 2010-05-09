@@ -10,3 +10,4 @@ Page.create :name => 'Google',        :url => 'http://www.google.de/'
 Page.create :name => 'Yahoo',         :url => 'http://www.yahoo.de/'
 Page.create :name => 'Avocado Store', :url => 'http://www.avocadostore.de/'
 Page.create :name => 'blindgaenger',  :url => 'http://blindgaenger.net/'
+Page.all.each(&:perform)

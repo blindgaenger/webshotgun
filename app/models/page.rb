@@ -7,31 +7,24 @@ class Page < ActiveRecord::Base
   validates_presence_of :url
   
   IMAGE_SIZE = 200.freeze
-  IMAGE_PATH = "/system/pages".freeze
+  TEMP_DIR = "/tmp".freeze
 
   def refresh
     Delayed::Job.enqueue self
   end
 
   def perform
-    puts "BEFORE #{self.updated_at}"
-    
-    basename = name.parameterize.to_s
-    filename = "#{basename}.png"
-    Dir.chdir("public#{IMAGE_PATH}") do
-      system "webkit2png #{url} --filename=#{basename} --clipwidth=#{IMAGE_SIZE} --clipheight=#{IMAGE_SIZE} --clipped --scale 0.2"
-      File.delete(filename) if File.exist?(filename)
-      File.mv "#{basename}-clipped.png", filename
-    end
+    basename = self.name.parameterize.to_s
+    filename = File.join(TEMP_DIR, "#{basename}-#{Time.now.to_i}")
 
-    new_filename = File.join(IMAGE_PATH, filename)
-    if self.image && self.image != new_filename && File.exist?("public#{self.image}")
-      File.delete("public#{self.image}")
-    end
-    self.update_attribute :image, new_filename
-    self.touch
+    system "webkit2png #{url} --filename=#{filename} --clipwidth=#{IMAGE_SIZE} --clipheight=#{IMAGE_SIZE} --clipped --scale 0.2"
     
-    puts "AFTER #{self.updated_at}"
+    image_filename = "#{filename}-clipped.png"
+    self.image = File.read(image_filename)
+    self.save!
+    File.delete(image_filename)
+    
+    self.touch # for cache control
   end
   
 end

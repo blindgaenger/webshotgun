@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100508164136) do
+ActiveRecord::Schema.define(:version => 20100509204541) do
 
   create_table "delayed_jobs", :force => true do |t|
     t.integer  "priority",   :default => 0
@@ -29,7 +29,7 @@ ActiveRecord::Schema.define(:version => 20100508164136) do
   create_table "pages", :force => true do |t|
     t.string   "name"
     t.string   "url"
-    t.string   "image"
+    t.binary   "image",      :limit => 1048576
     t.datetime "created_at"
     t.datetime "updated_at"
   end

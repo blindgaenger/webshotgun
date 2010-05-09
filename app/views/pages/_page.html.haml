@@ -1,7 +1,7 @@
 .page{:id => "page_#{page.id}"}
   .webshot
     %a{:href => page.url}
-      %img{:alt => page.name, :src => page.image}
+      %img{:alt => page.name, :src => "#{image_page_path(page)}?#{Time.now.to_i}"}
   .actions
     %a.edit_page{:href => edit_page_path(page)} Edit
     %a.delete_page{:href => delete_page_path(page)} Delete
