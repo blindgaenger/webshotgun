@@ -28,9 +28,12 @@ a, a img {
     width: 200px;
     height: 200px;
     float: left; }
-    #container #pages .page img {
+    #container #pages .page .webshot {
+      text-align: center;
       width: 200px;
       height: 200px; }
+    #container #pages .page .actions {
+      display: none; }
 
 #footer {
   text-align: center;

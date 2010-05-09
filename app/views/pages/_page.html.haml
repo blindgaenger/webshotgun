@@ -1,8 +1,10 @@
-.page
-  %div
+.page{:id => "page_#{page.id}"}
+  .webshot
     %a{:href => page.url}
       %img{:alt => page.name, :src => page.image}
-  %div
-    %a.refresh_page{:href => refresh_page_path(page)} Refresh
+  .actions
     %a.edit_page{:href => edit_page_path(page)} Edit
     %a.delete_page{:href => delete_page_path(page)} Delete
+    
+    = link_to_function "Refresh", "refresh_page(#{page.id}, '#{page.updated_at.httpdate}')", :class => 'refresh_page'
+    %img.spinner{:src => '/images/spinner.gif', :style => 'width:16px; height:16px; float:right; display:none;'}

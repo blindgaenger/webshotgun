@@ -33,7 +33,7 @@ ActionController::Routing::Routes.draw do |map|
   # You can have the root of your site routed with map.root -- just remember to delete public/index.html.
   map.root :controller => "pages"
 
-  map.resources :pages, :only => [:index, :new, :create, :edit, :update, :destroy], :member => {:delete => :get, :refresh => :get}
+  map.resources :pages, :only => [:index, :new, :show, :create, :edit, :update, :destroy], :member => {:delete => :get, :refresh => :post}
 
   # Install the default routes as the lowest priority.
   # Note: These default routes make all actions in every controller accessible via GET requests. You should

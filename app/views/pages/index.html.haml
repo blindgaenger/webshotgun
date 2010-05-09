@@ -1,5 +1,6 @@
 #buttons
   %a.new_page{:href => new_page_path} New Page
+  = link_to_function "Edit Pages", "$('.page .actions').toggle();"
 
 #pages
   - @pages.each do |page|
@@ -22,3 +23,42 @@
     $('a.edit_page').fancybox(options);
     $('a.delete_page').fancybox(options);
   });
+
+  function refresh_page(page_id, last_modified) {
+    page_loading(page_id);
+    load_page(page_id);
+    poll_page(page_id, last_modified);
+  }
+
+  function page_loading(page_id) {
+    $('#page_' + page_id + ' .spinner').show();
+  }
+
+  function page_loaded(page_id) {
+    $('#page_' + page_id + ' .spinner').hide();
+  }
+  
+  function load_page(page_id) {
+    new Ajax.Request('#{pages_path}/' + page_id + '/refresh', { method: 'post' });
+  }
+  
+  function poll_page(page_id, last_modified) {
+    setTimeout(function() {
+      new Ajax.Request('#{pages_path}/' + page_id, {
+        method: 'get',
+        requestHeaders: { 'If-Modified-Since': last_modified },
+        onComplete: function(transport) {
+          if (transport.status == 304) {
+            poll_page(page_id, last_modified);
+            
+          } else if (transport.status == 200) {
+            $('#page_' + page_id).replaceWith(transport.responseText);
+            
+          } else {
+            $('#page_' + page_id + ' .webshot img').replaceWith('error');
+            page_loaded(page_id);
+          }
+        }
+      }) 
+    }, 1000);
+  }

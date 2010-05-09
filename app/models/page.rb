@@ -1,7 +1,7 @@
 require 'ftools'
 
 class Page < ActiveRecord::Base
-  after_create :fetch
+  after_create :refresh
 
   validates_presence_of :name
   validates_presence_of :url
@@ -9,7 +9,13 @@ class Page < ActiveRecord::Base
   IMAGE_SIZE = 200.freeze
   IMAGE_PATH = "/system/pages".freeze
 
-  def fetch
+  def refresh
+    Delayed::Job.enqueue self
+  end
+
+  def perform
+    puts "BEFORE #{self.updated_at}"
+    
     basename = name.parameterize.to_s
     filename = "#{basename}.png"
     Dir.chdir("public#{IMAGE_PATH}") do
@@ -22,8 +28,10 @@ class Page < ActiveRecord::Base
     if self.image && self.image != new_filename && File.exist?("public#{self.image}")
       File.delete("public#{self.image}")
     end
-    self.image = new_filename
-    save!
+    self.update_attribute :image, new_filename
+    self.touch
+    
+    puts "AFTER #{self.updated_at}"
   end
   
 end

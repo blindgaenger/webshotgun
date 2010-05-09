@@ -8,6 +8,16 @@ class PagesController < ApplicationController
     render :layout => false
   end
 
+  def show
+    @page = Page.find(params[:id])
+    
+    if stale?(:last_modified => @page.updated_at)
+      render :layout => false  
+    else
+      response['Cache-Control'] = 'public, max-age=1'
+    end
+  end
+
   def create
     @page = Page.new(params[:page])
     
@@ -28,7 +38,7 @@ class PagesController < ApplicationController
   def update
     @page = Page.find(params[:id])
     
-    if @page.update_attributes(params[:page]) && @page.fetch
+    if @page.update_attributes(params[:page]) && @page.refresh #TODO
       flash[:notice] = 'Page was successfully updated.'
       redirect_to pages_path
     else
@@ -50,8 +60,8 @@ class PagesController < ApplicationController
   
   def refresh
     @page = Page.find(params[:id])
-    @page.fetch
-    redirect_to pages_path
+    @page.refresh
+    head :ok
   end
   
 end
