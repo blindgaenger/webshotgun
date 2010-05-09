@@ -17,6 +17,9 @@
       'autoDimensions' : false,
       'width' : 230,
       'height' : 160,
+      'onComplete' : function() {
+        $("#fancybox-inner input[type='text']:first").focus();
+      }
     }
   
     $('a.new_page').fancybox(options);
