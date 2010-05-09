@@ -1,0 +1,21 @@
+#buttons
+  %a.new_page{:href => new_page_path} New Page
+
+#pages
+  - @pages.each do |page|
+    %a.page{:href => page.url}
+      %img{:alt => page.name, :src => page.image}
+
+.clear
+
+:javascript
+  $(document).ready(function() {
+    $('#buttons a.new_page').fancybox({
+      'transitionIn'	: 'elastic',
+      'transitionOut'	: 'elastic',
+      'scrolling'		: 'no',
+      'autoDimensions' : false,
+      'width' : 230,
+      'height' : 160,
+    });
+  });
